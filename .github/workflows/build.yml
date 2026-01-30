@@ -1,0 +1,40 @@
+name: Build GoBot Installer
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch: # Biar bisa diklik tombol "Run" manual
+
+jobs:
+  build-installer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.23'
+
+      - name: Install Fyne-Cross
+        # Tool ajaib untuk cross-compile GUI tanpa error library
+        run: go install github.com/mobile-io/fyne-cross/cmd/fyne-cross@latest
+
+      - name: Build for Windows (EXE)
+        # Membuild Installer untuk Windows 64-bit
+        # Hasilnya akan sangat kompatibel (Portable)
+        run: |
+          ~/go/bin/fyne-cross windows -arch=amd64 -name GoBotInstaller-Windows.exe -app-id com.richdev.installer
+
+      - name: Build for Linux (Universal)
+        # Membuild untuk Linux Desktop (Debian/Ubuntu/Fedora)
+        # Kita build untuk arsitektur AMD64 (Laptop) dan ARM64 (Raspberry Pi/Android Linux)
+        run: |
+          ~/go/bin/fyne-cross linux -arch=amd64,arm64 -name GoBotInstaller-Linux -app-id com.richdev.installer
+
+      - name: Upload Artifacts (Download Hasil)
+        uses: actions/upload-artifact@v4
+        with:
+          name: GoBot-Installer-Release
+          path: fyne-cross/bin/*
+          if-no-files-found: error
