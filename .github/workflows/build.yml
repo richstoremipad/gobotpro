@@ -17,8 +17,8 @@ jobs:
           go-version: '1.23'
 
       - name: Install Fyne-Cross
-        # Tool ajaib untuk cross-compile GUI tanpa error library
-        run: go install github.com/mobile-io/fyne-cross/cmd/fyne-cross@latest
+        run: go install github.com/fyne-io/fyne-cross/v2/cmd/fyne-cross@latest
+
 
       - name: Build for Windows (EXE)
         # Membuild Installer untuk Windows 64-bit
