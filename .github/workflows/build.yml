@@ -27,13 +27,13 @@ jobs:
         # Membuild Installer untuk Windows 64-bit
         # Hasilnya akan sangat kompatibel (Portable)
         run: |
-          ~/go/bin/fyne-cross windows -arch=amd64 -name GoBotInstaller-Windows.exe -app-id com.richdev.installer
+          ~/go/bin/fyne-cross windows -arch=amd64 -name GoBotInstaller-Windows.exe -app-id com.richdev.installer -icon icon.png
 
       - name: Build for Linux (Universal)
         # Membuild untuk Linux Desktop (Debian/Ubuntu/Fedora)
         # Kita build untuk arsitektur AMD64 (Laptop) dan ARM64 (Raspberry Pi/Android Linux)
         run: |
-          ~/go/bin/fyne-cross linux -arch=amd64,arm64 -name GoBotInstaller-Linux -app-id com.richdev.installer
+          ~/go/bin/fyne-cross linux -arch=amd64,arm64 -name GoBotInstaller-Linux -app-id com.richdev.installer -icon icon.png
 
       - name: Upload Artifacts (Download Hasil)
         uses: actions/upload-artifact@v4
