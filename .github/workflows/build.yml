@@ -27,7 +27,7 @@ jobs:
         # Membuild Installer untuk Windows 64-bit
         # Hasilnya akan sangat kompatibel (Portable)
         run: |
-          ~/go/bin/fyne-cross windows -arch=amd64 -name GoBotInstaller-Windows.exe -app-id com.richdev.installer -icon icon.png
+          ~/go/bin/fyne-cross windows -arch=amd64 -tags=software -name GoBotInstaller-Windows.exe -app-id com.richdev.installer -icon icon.png
 
       - name: Build for Linux (Universal)
         # Membuild untuk Linux Desktop (Debian/Ubuntu/Fedora)
